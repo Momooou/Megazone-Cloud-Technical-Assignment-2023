@@ -1,1 +1,0 @@
-https://91rp1t473a.execute-api.ap-east-1.amazonaws.com/dev

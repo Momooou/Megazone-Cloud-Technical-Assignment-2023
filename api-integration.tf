@@ -35,5 +35,5 @@ output "api_base_url" {
 
 resource "local_file" "api_base_url" {
     content  = aws_apigatewayv2_stage.api_gateway_stg.invoke_url
-    filename = "UI/api_base_url.txt"
+    filename = "docs/api_base_url.txt"
 }
