@@ -29,6 +29,11 @@ resource "aws_lambda_permission" "api_invoke_policy" {
   source_arn = "${aws_apigatewayv2_api.api_gateway.execution_arn}/*/*"
 }
 
-output "base_url" {
+output "api_base_url" {
   value = aws_apigatewayv2_stage.api_gateway_stg.invoke_url
+}
+
+resource "local_file" "api_base_url" {
+    content  = aws_apigatewayv2_stage.api_gateway_stg.invoke_url
+    filename = "UI/api_base_url.txt"
 }
