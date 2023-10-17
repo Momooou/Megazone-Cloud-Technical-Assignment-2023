@@ -2,7 +2,7 @@ import json
 
 print("Loading function")
 
-def lambda_handler(event, context):
+def url_shortener(event, context):
     print('event:', event)
     x = event['queryStringParameters']
     print(x)
