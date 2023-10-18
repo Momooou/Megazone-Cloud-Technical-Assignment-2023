@@ -1,7 +1,7 @@
 import json
 import random
 import string
-
+import base64
 
 print("Loading function")
 
@@ -20,7 +20,7 @@ def url_shortener(event, context):
     if event['httpMethod'] == "POST":
         print('eventtttt:', event)
         print('contexttt:', context)
-        data = json.loads(event["body"])
+        data = base64.b64decode(event["body"]).decode('utf-8').split('=')[1]
         print(data)
         long_url = event['queryStringParameters']
         short_url = generate_random_string()
