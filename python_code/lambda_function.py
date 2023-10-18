@@ -27,8 +27,8 @@ def url_shortener(event, context):
     url_maps[long_url] = short_url
 
     print(url_maps)
-
+    
     return {
         'statusCode': 200,
-        'body': json.dumps('Helloooo from Lambda!')
+        'body': json.dumps("https://" + event.headers.host + "/" +short_url)
     }
