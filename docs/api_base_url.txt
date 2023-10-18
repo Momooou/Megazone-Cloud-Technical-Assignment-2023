@@ -1,1 +1,1 @@
-https://tww52o22h3.execute-api.ap-east-1.amazonaws.com/dev
+https://vnk16u6pjk.execute-api.ap-east-1.amazonaws.com/dev
