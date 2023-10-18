@@ -6,7 +6,7 @@ import base64
 print("Loading function")
 
 url_maps = {
-    "longURL": "shortURL"
+    "shortURL": "longURL"
 }
 
 
@@ -24,11 +24,10 @@ def url_shortener(event, context):
         long_url = str(base64.b64decode(event["body"]).decode('utf-8').split('=')[1])
         short_url = generate_random_string()
 
-        if short_url in url_maps.values():
+        if short_url in url_maps:
             short_url = generate_random_string()
 
-        print(long_url, "ssssssss")
-        url_maps[long_url] = short_url
+        url_maps[short_url] = long_url
 
         print(url_maps)
         

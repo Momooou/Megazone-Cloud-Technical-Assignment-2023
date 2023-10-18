@@ -1,1 +1,1 @@
-https://izdxxgr1mb.execute-api.ap-east-1.amazonaws.com/dev
+https://6omotdurfg.execute-api.ap-east-1.amazonaws.com/dev
