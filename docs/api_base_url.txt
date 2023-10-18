@@ -1,1 +1,1 @@
-https://l8leomuef7.execute-api.ap-east-1.amazonaws.com/dev
+https://69fa269sj8.execute-api.ap-east-1.amazonaws.com/dev
