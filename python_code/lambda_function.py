@@ -27,7 +27,6 @@ def url_shortener(event, context):
 
         url_maps[long_url] = short_url
 
-
         print(url_maps)
         
         return {
