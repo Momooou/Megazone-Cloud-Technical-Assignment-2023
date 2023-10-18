@@ -17,18 +17,23 @@ def generate_random_string():
 
 
 def url_shortener(event, context):
-    print('eventtttt:', event)
-    long_url = event['queryStringParameters']
-    short_url = generate_random_string()
-
-    if short_url in url_maps.values():
+    if event.httpMethod == "POST":
+        print('eventtttt:', event)
+        long_url = event['queryStringParameters']
         short_url = generate_random_string()
 
-    url_maps[long_url] = short_url
+        if short_url in url_maps.values():
+            short_url = generate_random_string()
 
-    print(url_maps)
-    
+        url_maps[long_url] = short_url
+
+        print(url_maps)
+        
+        return {
+            'statusCode': 200,
+            'body': json.dumps("https://" + event.headers.host + "/" +short_url)
+        }
     return {
-        'statusCode': 200,
-        'body': json.dumps("https://" + event.headers.host + "/" +short_url)
-    }
+            'statusCode': 200,
+            'body': json.dumps("hi")
+        }
