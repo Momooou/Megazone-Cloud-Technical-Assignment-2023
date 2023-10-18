@@ -20,6 +20,8 @@ def url_shortener(event, context):
     if event['httpMethod'] == "POST":
         print('eventtttt:', event)
         print('contexttt:', context)
+        data = json.loads(event["body"])
+        print(data)
         long_url = event['queryStringParameters']
         short_url = generate_random_string()
 
