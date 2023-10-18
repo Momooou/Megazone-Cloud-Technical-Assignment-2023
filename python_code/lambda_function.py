@@ -32,7 +32,7 @@ def url_shortener(event, context):
         
         return {
             'statusCode': 200,
-            'body': json.dumps("https://" + event['headers']['host'] + "/" +short_url)
+            'body': json.dumps("https://" + event['headers']['Host'] + "/" +short_url)
         }
     return {
             'statusCode': 200,
