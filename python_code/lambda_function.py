@@ -19,6 +19,7 @@ def generate_random_string():
 def url_shortener(event, context):
     if event['httpMethod'] == "POST":
         print('eventtttt:', event)
+        print('contexttt:', context)
         long_url = event['queryStringParameters']
         short_url = generate_random_string()
 
@@ -31,7 +32,7 @@ def url_shortener(event, context):
         
         return {
             'statusCode': 200,
-            'body': json.dumps("https://" + event.headers.host + "/" +short_url)
+            'body': json.dumps("https://" + event['headers']['host'] + "/" +short_url)
         }
     return {
             'statusCode': 200,
