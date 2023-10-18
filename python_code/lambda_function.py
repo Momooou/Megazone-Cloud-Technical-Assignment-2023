@@ -20,14 +20,14 @@ def url_shortener(event, context):
     if event['httpMethod'] == "POST":
         print('eventtttt:', event)
         print('contexttt:', context)
-        data = base64.b64decode(event["body"]).decode('utf-8').split('=')[1]
-        print(data)
-        long_url = event['queryStringParameters']
+
+        long_url = str(base64.b64decode(event["body"]).decode('utf-8').split('=')[1])
         short_url = generate_random_string()
 
         if short_url in url_maps.values():
             short_url = generate_random_string()
 
+        print(long_url, "ssssssss")
         url_maps[long_url] = short_url
 
         print(url_maps)
