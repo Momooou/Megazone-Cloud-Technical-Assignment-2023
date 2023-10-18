@@ -17,7 +17,7 @@ def generate_random_string():
 
 
 def url_shortener(event, context):
-    if event.httpMethod == "POST":
+    if event['httpMethod'] == "POST":
         print('eventtttt:', event)
         long_url = event['queryStringParameters']
         short_url = generate_random_string()
