@@ -1,1 +1,0 @@
-https://8tt7vsdnn3.execute-api.ap-east-1.amazonaws.com/dev
