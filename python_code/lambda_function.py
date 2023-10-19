@@ -2,6 +2,7 @@ import json
 import random
 import string
 import base64
+import urllib.parse
 
 print("Loading function")
 
@@ -44,7 +45,7 @@ def url_shortener(event, context):
             return {
                 'statusCode': 302,
                 'headers': {
-                    'Location': "https://www.google.com",
+                    'Location': urllib.parse.unquote(url_maps[req_url]),
                 }
             }
         else:
