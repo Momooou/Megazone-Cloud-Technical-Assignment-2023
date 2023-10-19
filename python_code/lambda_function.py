@@ -18,10 +18,8 @@ def generate_random_string():
 
 
 def url_shortener(event, context):
+    # POST /urlshortener endpoint
     if event['resource'].startswith('/urlshortener'):
-        # print('eventtttt:', event)
-        # print('contexttt:', context)
-
         long_url = str(base64.b64decode(
             event["body"]).decode('utf-8').split('=')[1])
         short_url = generate_random_string()
@@ -31,21 +29,19 @@ def url_shortener(event, context):
 
         url_maps[short_url] = long_url
 
-        print('url_mapssss', url_maps)
-
         return {
             'statusCode': 200,
             'body': "https://" + event['headers']['Host'] + "/dev/short/" + short_url
         }
+    # GET /short/{short_url} endpoint
     else:
         req_url = event['pathParameters']['short_url']
-        print("user redirected to ", url_maps[req_url])
-        print(type(url_maps[req_url]))
+
         if req_url in url_maps:
             return {
                 'statusCode': 302,
                 'headers': {
-                    'Location': urllib.parse.unquote(url_maps[req_url]),
+                    'Location': urllib.parse.unquote(url_maps[req_url])
                 }
             }
         else:
