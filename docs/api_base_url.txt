@@ -1,1 +1,1 @@
-https://oda095ojf2.execute-api.ap-east-1.amazonaws.com/dev
+https://puyrxepy65.execute-api.ap-east-1.amazonaws.com/dev
