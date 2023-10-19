@@ -2,7 +2,6 @@ import json
 import random
 import string
 import base64
-import webbrowser
 
 print("Loading function")
 
@@ -19,34 +18,35 @@ def generate_random_string():
 
 def url_shortener(event, context):
     if event['resource'].startswith('/urlshortener'):
-        print('eventtttt:', event)
-        print('contexttt:', context)
+        # print('eventtttt:', event)
+        # print('contexttt:', context)
 
         long_url = str(base64.b64decode(
             event["body"]).decode('utf-8').split('=')[1])
         short_url = generate_random_string()
 
-        if short_url in url_maps:
+        while short_url in url_maps:
             short_url = generate_random_string()
 
         url_maps[short_url] = long_url
 
-        print(url_maps)
+        print('url_mapssss', url_maps)
 
         return {
             'statusCode': 200,
-            'body': json.dumps("https://" + event['headers']['Host'] + "/dev/short/" + short_url)
+            'message': "https://" + event['headers']['Host'] + "/dev/short/" + short_url
         }
     else:
-        short_url = event['pathParameters']['haha']
-        webbrowser.open(url_maps[short_url])
-        return {
-            'statusCode': 302,
-            'headers': {
-                'Location': 'https://www.google.com',
+        req_url = event['pathParameters']['short_url']
+        if req_url in url_maps:
+            return {
+                'statusCode': 302,
+                'headers': {
+                    'Location': url_maps[req_url],
+                }
             }
-        }
-    return {
-        'statusCode': 200,
-        'body': json.dumps("hi")
-    }
+        else:
+            return {
+                'statusCode': 404,
+                'message': json.dumps("Not found.")
+            }
