@@ -34,7 +34,7 @@ def url_shortener(event, context):
 
         return {
             'statusCode': 200,
-            'body': json.dumps("https://" + event['headers']['Host'] + "/dev/short/" + short_url)
+            'body': "https://" + event['headers']['Host'] + "/dev/short/" + short_url
         }
     else:
         req_url = event['pathParameters']['short_url']
