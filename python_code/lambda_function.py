@@ -38,6 +38,8 @@ def url_shortener(event, context):
         }
     else:
         req_url = event['pathParameters']['short_url']
+        print("user redirected to ", url_maps[req_url])
+        print(type(url_maps[req_url]))
         if req_url in url_maps:
             return {
                 'statusCode': 302,
