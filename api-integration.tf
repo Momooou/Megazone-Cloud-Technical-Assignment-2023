@@ -16,7 +16,7 @@ resource "aws_apigatewayv2_integration" "api_integration" {
 resource "aws_apigatewayv2_route" "post" {
   api_id = aws_apigatewayv2_api.api_gateway.id
 
-  route_key = "POST /urlshortener"
+  route_key = "POST /urlshortener/{haha}"
   target    = "integrations/${aws_apigatewayv2_integration.api_integration.id}"
 }
 
