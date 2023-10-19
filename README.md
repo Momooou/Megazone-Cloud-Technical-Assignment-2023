@@ -2,6 +2,7 @@
 A short-lived URL shortener solution with AWS
 
 # Quickstart
-1. `terraform init`
-2. `terraform apply`
-3. Push to remote repository to get the AWS API endpoint updated.
+1. Set up AWS profile by using AWS CLI.
+2. `terraform init`
+3. `terraform apply`
+4. Push to remote repository to get the AWS API endpoint updated.

@@ -1,3 +1,0 @@
-1230 https://if90t0g2l4.execute-api.ap-east-1.amazonaws.com/dev/short/ry849
-
-1230 https://if90t0g2l4.execute-api.ap-east-1.amazonaws.com/dev/short/q0i50
