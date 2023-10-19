@@ -12,7 +12,7 @@ url_maps = {
                  'created_at': "time"}
 }
 
-def set_with_ttl(key, value, ttl):
+def set_with_ttl(key, value):
     url_maps[key] = {'long_url': value, 'created_at': time.time()}
 
 def get_with_ttl(key):
@@ -51,12 +51,12 @@ def url_shortener(event, context):
     # GET /short/{short_url} endpoint
     else:
         req_url = event['pathParameters']['short_url']
-
-        if req_url in url_maps:
+        dest_url = get_with_ttl(req_url)
+        if req_url in url_maps and dest_url is not None:
             return {
                 'statusCode': 302,
                 'headers': {
-                    'Location': urllib.parse.unquote(get_with_ttl(req_url))
+                    'Location': urllib.parse.unquote(dest_url)
                 }
             }
         else:
