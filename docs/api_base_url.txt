@@ -1,1 +1,1 @@
-https://puyrxepy65.execute-api.ap-east-1.amazonaws.com/dev
+https://29ay4uqro4.execute-api.ap-east-1.amazonaws.com/dev

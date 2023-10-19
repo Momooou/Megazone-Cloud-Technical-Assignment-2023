@@ -22,7 +22,8 @@ def url_shortener(event, context):
         print('eventtttt:', event)
         print('contexttt:', context)
 
-        long_url = str(base64.b64decode(event["body"]).decode('utf-8').split('=')[1])
+        long_url = str(base64.b64decode(
+            event["body"]).decode('utf-8').split('=')[1])
         short_url = generate_random_string()
 
         if short_url in url_maps:
@@ -31,18 +32,21 @@ def url_shortener(event, context):
         url_maps[short_url] = long_url
 
         print(url_maps)
-        
+
         return {
             'statusCode': 200,
-            'body': json.dumps("https://" + event['headers']['Host'] + "/dev/short/" +short_url)
+            'body': json.dumps("https://" + event['headers']['Host'] + "/dev/short/" + short_url)
         }
     else:
         short_url = event['pathParameters']['haha']
         webbrowser.open(url_maps[short_url])
         return {
-            'statusCode': 200
+            'statusCode': 302,
+            'headers': {
+                'Location': 'https://www.google.com',
+            }
         }
     return {
-            'statusCode': 200,
-            'body': json.dumps("hi")
-        }
+        'statusCode': 200,
+        'body': json.dumps("hi")
+    }
