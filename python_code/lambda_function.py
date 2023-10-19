@@ -8,21 +8,24 @@ import time
 print("Loading function")
 
 url_maps = {
-    "shortURL": {"long_url": "longURL",
-                 'created_at': "time"}
+    "<short URL>": {"long_url": "<long URL>",
+                    "created_at": "<create time>"}
 }
+
 
 def set_with_ttl(key, value):
     url_maps[key] = {'long_url': value, 'created_at': time.time()}
 
+
 def get_with_ttl(key):
-    data = url_maps.get(key)
-    
-    if data and (time.time() - data['created_at']) < 30:
-        return data['long_url']
+    value = url_maps.get(key)
+
+    if value and (time.time() - value['created_at']) < 600:
+        return value['long_url']
     else:
         return None
-    
+
+
 def generate_random_string():
     letters_and_digits = string.ascii_lowercase + string.digits
     random_string = ''.join(random.choices(letters_and_digits, k=5))
@@ -35,14 +38,13 @@ def url_shortener(event, context):
         long_url = str(base64.b64decode(
             event["body"]).decode('utf-8').split('=')[1])
         short_url = generate_random_string()
-
+        
+        # generate short_url again if it exists
         while short_url in url_maps:
             short_url = generate_random_string()
 
-        # url_maps[short_url]['long_url'] = long_url
-        set_with_ttl(short_url, long_url, )
-
-        print(url_maps)
+        # store short-long URL pair to url_maps
+        set_with_ttl(short_url, long_url)
 
         return {
             'statusCode': 200,
@@ -52,6 +54,8 @@ def url_shortener(event, context):
     else:
         req_url = event['pathParameters']['short_url']
         dest_url = get_with_ttl(req_url)
+
+        # redirect user
         if req_url in url_maps and dest_url is not None:
             return {
                 'statusCode': 302,
