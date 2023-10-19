@@ -1,1 +1,0 @@
-https://d98vxicov7.execute-api.ap-east-1.amazonaws.com/dev

@@ -6,14 +6,14 @@ resource "aws_apigatewayv2_integration" "api_integration" {
   integration_method = "POST"
 }
 
-# resource "aws_apigatewayv2_route" "get" {
-#   api_id = aws_apigatewayv2_api.api_gateway.id
-
-#   route_key = "GET /urlshortener"
-#   target    = "integrations/${aws_apigatewayv2_integration.api_integration.id}"
-# }
-
 resource "aws_apigatewayv2_route" "post" {
+  api_id = aws_apigatewayv2_api.api_gateway.id
+
+  route_key = "POST /urlshortener"
+  target    = "integrations/${aws_apigatewayv2_integration.api_integration.id}"
+}
+
+resource "aws_apigatewayv2_route" "redirect" {
   api_id = aws_apigatewayv2_api.api_gateway.id
 
   route_key = "POST /urlshortener/{haha}"

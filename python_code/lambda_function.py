@@ -2,6 +2,7 @@ import json
 import random
 import string
 import base64
+import webbrowser
 
 print("Loading function")
 
@@ -34,6 +35,11 @@ def url_shortener(event, context):
         return {
             'statusCode': 200,
             'body': json.dumps("https://" + event['headers']['Host'] + "/" +short_url)
+        }
+    if 'haha' in event['pathParameters']:
+        webbrowser.open(event['pathParameters']['haha'])
+        return {
+            'statusCode': 200
         }
     return {
             'statusCode': 200,
