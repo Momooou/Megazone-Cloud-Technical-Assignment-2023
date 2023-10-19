@@ -1,3 +1,4 @@
+# Integrating API gateway and lambda 
 resource "aws_apigatewayv2_integration" "api_integration" {
   api_id = aws_apigatewayv2_api.api_gateway.id
 
@@ -6,6 +7,7 @@ resource "aws_apigatewayv2_integration" "api_integration" {
   integration_method = "POST"
 }
 
+# request types to pass to lambda
 resource "aws_apigatewayv2_route" "post" {
   api_id = aws_apigatewayv2_api.api_gateway.id
 
@@ -20,6 +22,7 @@ resource "aws_apigatewayv2_route" "redirect" {
   target    = "integrations/${aws_apigatewayv2_integration.api_integration.id}"
 }
 
+# permission to invoke lambda
 resource "aws_lambda_permission" "api_invoke_policy" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
@@ -29,11 +32,12 @@ resource "aws_lambda_permission" "api_invoke_policy" {
   source_arn = "${aws_apigatewayv2_api.api_gateway.execution_arn}/*/*"
 }
 
+# API base URL
 output "api_base_url" {
   value = aws_apigatewayv2_stage.api_gateway_stg.invoke_url
 }
 
 resource "local_file" "api_base_url" {
-    content  = aws_apigatewayv2_stage.api_gateway_stg.invoke_url
-    filename = "docs/api_base_url.txt"
+  content  = aws_apigatewayv2_stage.api_gateway_stg.invoke_url
+  filename = "docs/api_base_url.txt"
 }

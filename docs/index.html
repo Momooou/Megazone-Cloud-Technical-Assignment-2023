@@ -7,12 +7,12 @@
     <title>MZC URL shortener</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Dynamically reference updated API endpoint provided by AWS -->
     <script>
         fetch('api_base_url.txt')
             .then(response => response.text())
             .then(url => {
                 document.getElementById('form').action = url + "/urlshortener";
-                console.log(url)
             })
             .catch((e) => console.error(e));
     </script>
@@ -21,6 +21,7 @@
 <body>
     <h1>URL shortener</h1>
 
+    <!-- HTML form to make POST request to shorten an URL -->
     <form id="form" method="POST">
         <label for="long-url">Long URL:</label>
         <input type="text" id="long-url" name="long-url"><br><br>

@@ -13,7 +13,7 @@ terraform {
       version = "~> 2.2.0"
     }
     local = {
-      source = "hashicorp/local"
+      source  = "hashicorp/local"
       version = "2.4.0"
     }
   }
@@ -21,8 +21,7 @@ terraform {
   required_version = "~> 1.0"
 }
 
-# Configure the AWS Provider
 provider "aws" {
-  region = "ap-east-1"
+  region  = "ap-east-1"
   profile = "morrischan"
 }

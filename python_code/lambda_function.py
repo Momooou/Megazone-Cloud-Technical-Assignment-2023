@@ -7,31 +7,34 @@ import time
 
 print("Loading function")
 
+# dict to store the mapping between short and long URLs and their created time
 url_maps = {
     "<short URL>": {"long_url": "<long URL>",
-                    "created_at": "<create time>"}
+                    "created_at": "<creation time>"}
 }
 
-
+# functions to set and get url_maps with expiry
 def set_with_ttl(key, value):
     url_maps[key] = {'long_url': value, 'created_at': time.time()}
+    print("url_maps updated:", url_maps)
 
 
 def get_with_ttl(key):
     value = url_maps.get(key)
 
-    if value and (time.time() - value['created_at']) < 600:
+    if value and (time.time() - value['created_at']) < 30:
         return value['long_url']
     else:
+        print("Failed accessing", key)
         return None
 
-
+# function to generate random string with 5 letters/digits
 def generate_random_string():
     letters_and_digits = string.ascii_lowercase + string.digits
     random_string = ''.join(random.choices(letters_and_digits, k=5))
     return random_string
 
-
+# function to handle events from AWS API gateway
 def url_shortener(event, context):
     # POST /urlshortener endpoint
     if event['resource'].startswith('/urlshortener'):
@@ -39,7 +42,7 @@ def url_shortener(event, context):
             event["body"]).decode('utf-8').split('=')[1])
         short_url = generate_random_string()
         
-        # generate short_url again if it exists
+        # generate short_url again if it already exists
         while short_url in url_maps:
             short_url = generate_random_string()
 
@@ -55,8 +58,9 @@ def url_shortener(event, context):
         req_url = event['pathParameters']['short_url']
         dest_url = get_with_ttl(req_url)
 
-        # redirect user
+        # redirect user if short URL exists and not expired
         if req_url in url_maps and dest_url is not None:
+            print("Redirected user to the dest of", req_url)
             return {
                 'statusCode': 302,
                 'headers': {

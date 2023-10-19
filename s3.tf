@@ -1,10 +1,9 @@
-
+# s3 bucket to store the zip archive of python code
 resource "random_pet" "lambda_bucket_name" {
   prefix = "mzc-url-shortener"
   length = 2
 }
 
-# s3 bucket
 resource "aws_s3_bucket" "lambda_bucket" {
   bucket        = random_pet.lambda_bucket_name.id
   force_destroy = true

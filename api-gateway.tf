@@ -1,8 +1,10 @@
+# API gateway: main
 resource "aws_apigatewayv2_api" "api_gateway" {
   name          = "main"
   protocol_type = "HTTP"
 }
 
+# staging the API
 resource "aws_apigatewayv2_stage" "api_gateway_stg" {
   api_id = aws_apigatewayv2_api.api_gateway.id
 
