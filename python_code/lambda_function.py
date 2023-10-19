@@ -44,7 +44,7 @@ def url_shortener(event, context):
             return {
                 'statusCode': 302,
                 'headers': {
-                    'Location': url_maps[req_url],
+                    'Location': "https://www.google.com",
                 }
             }
         else:
