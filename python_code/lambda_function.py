@@ -18,7 +18,7 @@ def generate_random_string():
 
 
 def url_shortener(event, context):
-    if event['httpMethod'] == "POST":
+    if event['resource'].startswith('/urlshortener'):
         print('eventtttt:', event)
         print('contexttt:', context)
 
@@ -34,10 +34,11 @@ def url_shortener(event, context):
         
         return {
             'statusCode': 200,
-            'body': json.dumps("https://" + event['headers']['Host'] + "/" +short_url)
+            'body': json.dumps("https://" + event['headers']['Host'] + "/dev/short/" +short_url)
         }
-    if 'haha' in event['pathParameters']:
-        webbrowser.open(event['pathParameters']['haha'])
+    else:
+        short_url = event['pathParameters']['haha']
+        webbrowser.open(url_maps[short_url])
         return {
             'statusCode': 200
         }
