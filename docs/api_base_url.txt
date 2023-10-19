@@ -1,1 +1,0 @@
-https://ma13p5i07k.execute-api.ap-east-1.amazonaws.com/dev

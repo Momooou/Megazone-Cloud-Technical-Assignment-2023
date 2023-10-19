@@ -21,8 +21,9 @@ def set_with_ttl(key, value):
 
 def get_with_ttl(key):
     value = url_maps.get(key)
+    ttl = 30
 
-    if value and (time.time() - value['created_at']) < 30:
+    if value and (time.time() - value['created_at']) < ttl:
         return value['long_url']
     else:
         print("Failed accessing", key)
@@ -60,7 +61,7 @@ def url_shortener(event, context):
 
         # redirect user if short URL exists and not expired
         if req_url in url_maps and dest_url is not None:
-            print("Redirected user to the dest of", req_url)
+            print("Redirected user to", req_url)
             return {
                 'statusCode': 302,
                 'headers': {
@@ -70,5 +71,5 @@ def url_shortener(event, context):
         else:
             return {
                 'statusCode': 404,
-                'body': json.dumps("Not found.")
+                'body': "Not found."
             }
