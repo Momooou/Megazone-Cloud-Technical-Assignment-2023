@@ -2,6 +2,9 @@
 resource "aws_apigatewayv2_api" "api_gateway" {
   name          = "main"
   protocol_type = "HTTP"
+  tags = {
+    "ManagedBy" = "Terraform"
+  }
 }
 
 # staging the API
@@ -28,10 +31,16 @@ resource "aws_apigatewayv2_stage" "api_gateway_stg" {
       }
     )
   }
+  tags = {
+    "ManagedBy" = "Terraform"
+  }
 }
 
 resource "aws_cloudwatch_log_group" "api_gateway_log_group" {
   name = "/aws/api-gw/${aws_apigatewayv2_api.api_gateway.name}"
 
   retention_in_days = 14
+  tags = {
+    "ManagedBy" = "Terraform"
+  }
 }

@@ -38,6 +38,9 @@ resource "aws_lambda_function" "url_shortener" {
   source_code_hash = data.archive_file.code_archive.output_base64sha256
 
   role = aws_iam_role.lambda_exec_role.arn
+  tags = {
+    "ManagedBy" = "Terraform"
+  }
 }
 
 # cloudwatch group
@@ -45,6 +48,9 @@ resource "aws_cloudwatch_log_group" "url_shortenr_log_group" {
   name = "/aws/lambda/${aws_lambda_function.url_shortener.function_name}"
 
   retention_in_days = 14
+  tags = {
+    "ManagedBy" = "Terraform"
+  }
 }
 
 # zip
